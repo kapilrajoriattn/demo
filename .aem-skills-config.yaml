@@ -1,0 +1,4 @@
+configured: true
+project: "demo"
+package: "com.demo.aem"
+group: "Demo AEM Project - Content"
