@@ -1,0 +1,35 @@
+<!--/* Component: recent-articles */-->
+<sly data-sly-use.model="com.demo.aem.core.models.RecentArticlesModel"/>
+<sly data-sly-use.clientlib="core/wcm/components/commons/v1/templates/clientlib.html">
+    <sly data-sly-call="${clientlib.css @ categories='demo.components.recent-articles'}"/>
+</sly>
+
+<section data-sly-test="${model.hasContent}"
+         class="cmp-recent-articles"
+         data-cmp-is="recent-articles">
+    <h2 data-sly-test="${model.title}" class="cmp-recent-articles__title">${model.title}</h2>
+    <ul class="cmp-recent-articles__list">
+        <li data-sly-repeat.article="${model.articles}" class="cmp-recent-articles__item">
+            <a class="cmp-recent-articles__link" href="${article.url @ context='uri'}">
+                <span class="cmp-recent-articles__image">
+                    <img data-sly-test="${article.thumbnail}"
+                         class="cmp-recent-articles__image-element"
+                         src="${article.thumbnail @ context='uri'}"
+                         alt=""
+                         loading="lazy"/>
+                </span>
+                <h3 class="cmp-recent-articles__item-title">${article.title}</h3>
+                <p data-sly-test="${article.description}"
+                   class="cmp-recent-articles__item-description">${article.description}</p>
+            </a>
+        </li>
+    </ul>
+    <div data-sly-test="${model.hasCta}" class="cmp-recent-articles__actions">
+        <a class="cmp-recent-articles__cta" href="${model.ctaLink @ context='uri'}">${model.ctaText}</a>
+    </div>
+</section>
+
+<!--/* Empty state for authors */-->
+<sly data-sly-test="${!model.hasContent && wcmmode.edit}">
+    <div class="cmp-recent-articles cmp-recent-articles--empty">${'Please select a Path that has child pages for the Recent Articles component' @ i18n}</div>
+</sly>

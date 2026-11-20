@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:Component"
+    jcr:title="Recent Articles"
+    jcr:description="Lists the child pages of a page as cards with thumbnail, title and description"
+    componentGroup="Demo AEM Project - Content"/>

@@ -1,0 +1,132 @@
+/**
+ * Component: featured-article
+ *
+ * Image on the left, grey content panel on the right. The two stack
+ * (image above panel) below 768px.
+ */
+
+.cmp-featured-article {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 48rem;
+    margin: 0 auto;
+    color: #000;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Image */
+.cmp-featured-article__image {
+    position: relative;
+    min-height: 14rem;
+    overflow: hidden;
+    background-color: #d8d8d8;
+}
+
+.cmp-featured-article__image-element {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Content panel */
+.cmp-featured-article__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 1.5rem;
+    background-color: #ebebeb;
+}
+
+.cmp-featured-article__title {
+    margin: 0 0 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.cmp-featured-article__heading {
+    margin: 0 0 1rem;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.625rem;
+    font-weight: 400;
+    line-height: 1.35;
+}
+
+.cmp-featured-article__description {
+    margin: 0 0 1.5rem;
+    font-size: 0.75rem;
+    line-height: 1.7;
+}
+
+.cmp-featured-article__heading p,
+.cmp-featured-article__description p {
+    margin: 0 0 0.5rem;
+}
+
+.cmp-featured-article__heading > :last-child,
+.cmp-featured-article__description > :last-child {
+    margin-bottom: 0;
+}
+
+.cmp-featured-article__description a {
+    color: inherit;
+}
+
+.cmp-featured-article__actions {
+    margin: 0;
+}
+
+.cmp-featured-article__cta {
+    display: inline-block;
+    padding: 0.875rem 1.5rem;
+    background-color: #ffe600;
+    color: #000;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background-color 0.2s ease;
+}
+
+.cmp-featured-article__cta:hover {
+    background-color: #ffd400;
+}
+
+.cmp-featured-article__cta:focus-visible {
+    outline: 2px solid #000;
+    outline-offset: 2px;
+}
+
+/* Author empty state */
+.cmp-featured-article--empty {
+    display: block;
+    padding: 1rem;
+    border: 2px dashed #ccc;
+    color: #666;
+    text-align: center;
+}
+
+/* Two columns: image ~62.5%, panel ~37.5% */
+@media (min-width: 768px) {
+    .cmp-featured-article {
+        grid-template-columns: minmax(0, 5fr) minmax(0, 3fr);
+        min-height: 21.5rem;
+    }
+
+    .cmp-featured-article--no-image {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .cmp-featured-article__image {
+        min-height: 0;
+    }
+}

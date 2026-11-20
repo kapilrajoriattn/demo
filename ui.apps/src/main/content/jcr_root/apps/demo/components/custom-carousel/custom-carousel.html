@@ -1,0 +1,78 @@
+<!--/* Component: custom-carousel */-->
+<sly data-sly-use.model="com.demo.aem.core.models.CustomCarouselModel"/>
+<sly data-sly-use.clientlib="core/wcm/components/commons/v1/templates/clientlib.html">
+    <sly data-sly-call="${clientlib.css @ categories='demo.components.custom-carousel'}"/>
+    <sly data-sly-call="${clientlib.js @ categories='demo.components.custom-carousel', async=true}"/>
+</sly>
+
+<section data-sly-test="${model.hasContent}"
+         class="cmp-custom-carousel"
+         data-cmp-is="custom-carousel"
+         role="region"
+         aria-roledescription="${'carousel' @ i18n}"
+         aria-label="${'Carousel' @ i18n}">
+    <div class="cmp-custom-carousel__content">
+        <div data-sly-repeat.slide="${model.slides}"
+             class="cmp-custom-carousel__item${slideList.first ? ' cmp-custom-carousel__item--active' : ''}"
+             id="${resource.path @ context='attribute'}-slide-${slideList.index}"
+             role="group"
+             aria-roledescription="${'slide' @ i18n}"
+             aria-label="${'{0} of {1}' @ i18n, format=[slideList.count, model.slides.size]}"
+             hidden="${!slideList.first}">
+            <div class="cmp-custom-carousel__image">
+                <img data-sly-test="${slide.image}"
+                     class="cmp-custom-carousel__image-element"
+                     src="${slide.image @ context='uri'}"
+                     alt=""
+                     loading="${slideList.first ? 'eager' : 'lazy'}"/>
+            </div>
+            <div class="cmp-custom-carousel__caption">
+                <div data-sly-test="${slide.heading}"
+                     class="cmp-custom-carousel__heading"
+                     role="heading"
+                     aria-level="2">${slide.heading @ context='html'}</div>
+                <div data-sly-test="${slide.description}"
+                     class="cmp-custom-carousel__description">${slide.description @ context='html'}</div>
+                <a data-sly-test="${slide.hasCta}"
+                   class="cmp-custom-carousel__cta"
+                   href="${slide.ctaLink @ context='uri'}">${slide.ctaText}</a>
+            </div>
+        </div>
+    </div>
+    <div data-sly-test="${model.navigable}" class="cmp-custom-carousel__controls">
+        <div class="cmp-custom-carousel__indicators" role="tablist" aria-label="${'Choose a slide to display' @ i18n}">
+            <button data-sly-repeat.dot="${model.slides}"
+                    type="button"
+                    class="cmp-custom-carousel__indicator${dotList.first ? ' cmp-custom-carousel__indicator--active' : ''}"
+                    role="tab"
+                    aria-controls="${resource.path @ context='attribute'}-slide-${dotList.index}"
+                    aria-label="${'Slide {0}' @ i18n, format=[dotList.count]}"
+                    aria-selected="${dotList.first ? 'true' : 'false'}"
+                    tabindex="${dotList.first ? '0' : '-1'}"
+                    data-cmp-hook-custom-carousel="indicator"></button>
+        </div>
+        <div class="cmp-custom-carousel__actions">
+            <button type="button"
+                    class="cmp-custom-carousel__action cmp-custom-carousel__action--previous"
+                    aria-label="${'Previous' @ i18n}"
+                    data-cmp-hook-custom-carousel="previous">
+                <svg class="cmp-custom-carousel__arrow" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+                    <path d="M20 12H4M10 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"/>
+                </svg>
+            </button>
+            <button type="button"
+                    class="cmp-custom-carousel__action cmp-custom-carousel__action--next"
+                    aria-label="${'Next' @ i18n}"
+                    data-cmp-hook-custom-carousel="next">
+                <svg class="cmp-custom-carousel__arrow" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+                    <path d="M4 12h16M14 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!--/* Empty state for authors */-->
+<sly data-sly-test="${!model.hasContent && wcmmode.edit}">
+    <div class="cmp-custom-carousel cmp-custom-carousel--empty">${'Please configure the Custom Carousel component' @ i18n}</div>
+</sly>

@@ -1,0 +1,33 @@
+<!--/* Component: featured-article */-->
+<sly data-sly-use.model="com.demo.aem.core.models.FeaturedArticleModel"/>
+<sly data-sly-use.clientlib="core/wcm/components/commons/v1/templates/clientlib.html">
+    <sly data-sly-call="${clientlib.css @ categories='demo.components.featured-article'}"/>
+</sly>
+
+<article data-sly-test="${model.hasContent}"
+         class="cmp-featured-article${model.image ? '' : ' cmp-featured-article--no-image'}"
+         data-cmp-is="featured-article">
+    <div data-sly-test="${model.image}" class="cmp-featured-article__image">
+        <img class="cmp-featured-article__image-element"
+             src="${model.image @ context='uri'}"
+             alt=""
+             loading="lazy"/>
+    </div>
+    <div class="cmp-featured-article__content">
+        <p data-sly-test="${model.title}" class="cmp-featured-article__title">${model.title}</p>
+        <div data-sly-test="${model.heading}"
+             class="cmp-featured-article__heading"
+             role="heading"
+             aria-level="2">${model.heading @ context='html'}</div>
+        <div data-sly-test="${model.description}"
+             class="cmp-featured-article__description">${model.description @ context='html'}</div>
+        <div data-sly-test="${model.hasCta}" class="cmp-featured-article__actions">
+            <a class="cmp-featured-article__cta" href="${model.ctaLink @ context='uri'}">${model.ctaText}</a>
+        </div>
+    </div>
+</article>
+
+<!--/* Empty state for authors */-->
+<sly data-sly-test="${!model.hasContent && wcmmode.edit}">
+    <div class="cmp-featured-article cmp-featured-article--empty">${'Please configure the Featured Article component' @ i18n}</div>
+</sly>
